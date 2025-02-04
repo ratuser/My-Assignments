@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body{
+            background-image: url('https://wallpapercave.com/wp/wp11771284.jpg');
+            background-repeat: no-repeat;
+            background-size: cover;
+            background-attachment: fixed;
+            color: black;
+            position: relative;
+        }
+        body::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            /* background: rgba(0, 0, 0, 0.5); */
+            z-index: -1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            top: 0;
+            left: 0;
+        }
+
+        .container{
+            margin-top: 20px;
+            max-width: 100%;
+            height: 300px;
+            background: linear-gradient(to right,rgba(255,255,255,0.5),rgba(255,255,255,0.3));
+            /* filter: blur(7px); */
+            box-shadow: 10px 15px 15px rgba(255,255,255,0.2);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-grow: 4;
+            border-radius: 10px;
+        }
+        #cli{
+            padding: 10px 20px;
+            color: white;
+            background: linear-gradient(to right, rgba(255, 0, 0, 0.5), rgba(0, 0, 255, 0.5));
+            border: none;
+            border-radius:5px ;
+            margin-top: 20px;
+            margin-left: 550px;
+            font-size: 20px;
+            transition: all 0.3s ease-in-out;
+        }
+        #cli:hover{
+            transform: scale(1.2);
+    box-shadow: 0 0 20px rgba(255, 0, 0, 0.8), 0 0 30px rgba(0, 0, 255, 0.8); /* Glow effect */
+    transition: all 0.3s ease-in-out;
+        }
+        h2{
+            font-size: 24px;
+            letter-spacing: 1px;
+            font-family: sans-serif;
+        }
+        #quote {
+            max-width: 90%;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        #cli:active {
+    transform: scale(1.1); /* Slightly shrink on click */
+    box-shadow: 0 0 10px rgba(255, 0, 0, 1), 0 0 20px rgba(0, 0, 255, 1); /* Intense glow on click */
+}
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2 id="quote"></h2>
+    </div>
+    <button id="cli">Quote</button>
+    <script>
+        
+        const quotes = [
+    { quote: "The only way to do great work is to love what you do.", author: "Steve Jobs" },
+    { quote: "In the end, it's not the years in your life that count. It's the life in your years.", author: "Abraham Lincoln" },
+    { quote: "Life is what happens when you're busy making other plans.", author: "John Lennon" },
+    { quote: "Get busy living or get busy dying.", author: "Stephen King" },
+    { quote: "The purpose of life is not to be happy. It is to be useful, to be honorable, to be compassionate, to have it make some difference that you have lived and lived well.", author: "Ralph Waldo Emerson" },
+    { quote: "You only live once, but if you do it right, once is enough.", author: "Mae West" },
+    { quote: "To be yourself in a world that is constantly trying to make you something else is the greatest accomplishment.", author: "Ralph Waldo Emerson" },
+    { quote: "Success is not the key to happiness. Happiness is the key to success. If you love what you are doing, you will be successful.", author: "Albert Schweitzer" },
+    { quote: "Do not go where the path may lead, go instead where there is no path and leave a trail.", author: "Ralph Waldo Emerson" },
+    { quote: "It does not matter how slowly you go as long as you do not stop.", author: "Confucius" },
+    { quote: "You miss 100% of the shots you don't take.", author: "Wayne Gretzky" },
+    { quote: "Believe you can and you're halfway there.", author: "Theodore Roosevelt" },
+    { quote: "The future belongs to those who believe in the beauty of their dreams.", author: "Eleanor Roosevelt" },
+    { quote: "The only limit to our realization of tomorrow is our doubts of today.", author: "Franklin D. Roosevelt" },
+    { quote: "Life isn't about finding yourself. Life is about creating yourself.", author: "George Bernard Shaw" },
+    { quote: "To be yourself is all that you can do.", author: "Chris Cornell" },
+    { quote: "The best time to plant a tree was 20 years ago. The second best time is now.", author: "Chinese Proverb" },
+    { quote: "A journey of a thousand miles begins with a single step.", author: "Lao Tzu" },
+    { quote: "Happiness depends upon ourselves.", author: "Aristotle" },
+    { quote: "The unexamined life is not worth living.", author: "Socrates" },
+    { quote: "You can't help everyone, but everyone can help someone.", author: "Ronald Reagan" },
+    { quote: "It always seems impossible until it’s done.", author: "Nelson Mandela" },
+    { quote: "The only way to achieve the impossible is to believe it is possible.", author: "Charles Kingsleigh" },
+    { quote: "Be the change that you wish to see in the world.", author: "Mahatma Gandhi" },
+    { quote: "It’s not whether you get knocked down, it’s whether you get up.", author: "Vince Lombardi" },
+    { quote: "Everything you can imagine is real.", author: "Pablo Picasso" },
+    { quote: "Do what you can, with what you have, where you are.", author: "Theodore Roosevelt" },
+    { quote: "The only thing we have to fear is fear itself.", author: "Franklin D. Roosevelt" },
+    { quote: "You are never too old to set another goal or to dream a new dream.", author: "C.S. Lewis" },
+    { quote: "Life is really simple, but we insist on making it complicated.", author: "Confucius" },
+    { quote: "An unexamined life is not worth living.", author: "Socrates" },
+    { quote: "Do one thing every day that scares you.", author: "Eleanor Roosevelt" },
+    { quote: "The only thing necessary for the triumph of evil is for good men to do nothing.", author: "Edmund Burke" },
+    { quote: "Everything has beauty, but not everyone sees it.", author: "Confucius" },
+    { quote: "The only impossible journey is the one you never begin.", author: "Tony Robbins" },
+    { quote: "It’s not the years in your life that count. It’s the life in your years.", author: "Abraham Lincoln" },
+    { quote: "The mind is everything. What you think you become.", author: "Buddha" },
+    { quote: "Our lives begin to end the day we become silent about things that matter.", author: "Martin Luther King Jr." },
+    { quote: "To live is the rarest thing in the world. Most people exist, that is all.", author: "Oscar Wilde" },
+    { quote: "Don’t watch the clock; do what it does. Keep going.", author: "Sam Levenson" },
+    { quote: "Act as if what you do makes a difference. It does.", author: "William James" },
+    { quote: "The only way to make sense out of change is to plunge into it, move with it, and join the dance.", author: "Alan Watts" },
+    { quote: "If you want to live a happy life, tie it to a goal, not to people or things.", author: "Albert Einstein" },
+    { quote: "The best way to predict your future is to create it.", author: "Abraham Lincoln" },
+    { quote: "If you want something you’ve never had, you must be willing to do something you’ve never done.", author: "Thomas Jefferson" },
+    { quote: "You only live once, but if you do it right, once is enough.", author: "Mae West" },
+    { quote: "The greatest glory in living lies not in never falling, but in rising every time we fall.", author: "Nelson Mandela" },
+    { quote: "Life is either a daring adventure or nothing at all.", author: "Helen Keller" },
+    { quote: "In the middle of difficulty lies opportunity.", author: "Albert Einstein" },
+    { quote: "The best revenge is massive success.", author: "Frank Sinatra" },
+    { quote: "I have not failed. I’ve just found 10,000 ways that won’t work.", author: "Thomas Edison" },
+    { quote: "A person who never made a mistake never tried anything new.", author: "Albert Einstein" },
+    { quote: "If you’re going through hell, keep going.", author: "Winston Churchill" },
+    { quote: "Don’t count the days, make the days count.", author: "Muhammad Ali" },
+    { quote: "You must be the change you wish to see in the world.", author: "Mahatma Gandhi" },
+    { quote: "Success is not final, failure is not fatal: It is the courage to continue that counts.", author: "Winston Churchill" },
+    { quote: "It is never too late to be what you might have been.", author: "George Eliot" },
+    { quote: "You are braver than you believe, stronger than you seem, and smarter than you think.", author: "A.A. Milne" },
+    { quote: "Your time is limited, so don’t waste it living someone else’s life.", author: "Steve Jobs" },
+    { quote: "The best way to find yourself is to lose yourself in the service of others.", author: "Mahatma Gandhi" },
+    { quote: "Nothing is impossible, the word itself says 'I’m possible!'", author: "Audrey Hepburn" },
+    { quote: "We are all in the gutter, but some of us are looking at the stars.", author: "Oscar Wilde" },
+    { quote: "To live is to suffer, to survive is to find some meaning in the suffering.", author: "Friedrich Nietzsche" },
+    { quote: "What lies behind us and what lies before us are tiny matters compared to what lies within us.", author: "Ralph Waldo Emerson" },
+    { quote: "Doubt kills more dreams than failure ever will.", author: "Suzy Kassem" },
+    { quote: "Be yourself; everyone else is already taken.", author: "Oscar Wilde" },
+    { quote: "This too shall pass.", author: "Unknown" },
+    { quote: "Do what you love, and you’ll never work a day in your life.", author: "Confucius" },
+    { quote: "The best way to predict the future is to invent it.", author: "Alan Kay" },
+    { quote: "Your life does not get better by chance, it gets better by change.", author: "Jim Rohn" },
+    { quote: "Success is not in what you have, but who you are.", author: "Bo Bennett" },
+    { quote: "Life isn’t about waiting for the storm to pass, it’s about learning to dance in the rain.", author: "Vivian Greene" },
+    { quote: "Do one thing every day that scares you.", author: "Eleanor Roosevelt" },
+    { quote: "Do not wait for leaders; do it alone, person to person.", author: "Mother Teresa" },
+    { quote: "The only impossible journey is the one you never begin.", author: "Tony Robbins" },
+    { quote: "You have within you right now, everything you need to deal with whatever the world can throw at you.", author: "Brian Tracy" },
+    { quote: "There are no limits to what you can accomplish, except the limits you place on your own thinking.", author: "Brian Tracy" },
+    { quote: "Everything you’ve ever wanted is on the other side of fear.", author: "George Addair" },
+    { quote: "The way to get started is to quit talking and begin doing.", author: "Walt Disney" },
+    { quote: "Life is what we make it, always has been, always will be.", author: "Grandma Moses" },
+    { quote: "You can never plan the future by the past.", author: "Edmund Burke" },
+    { quote: "If you want to live a happy life, tie it to a goal, not to people or things.", author: "Albert Einstein" },
+    { quote: "What you get by achieving your goals is not as important as what you become by achieving your goals.", author: "Zig Ziglar" },
+    { quote: "Success usually comes to those who are too busy to be looking for it.", author: "Henry David Thoreau" },
+    { quote: "You don’t have to be great to start, but you have to start to be great.", author: "Zig Ziglar" },
+    { quote: "The best time to plant a tree was 20 years ago. The second best time is now.", author: "Chinese Proverb" },
+    { quote: "It does not matter how slowly you go as long as you do not stop.", author: "Confucius" },
+    { quote: "It always seems impossible until it’s done.", author: "Nelson Mandela" },
+    { quote: "The best revenge is massive success.", author: "Frank Sinatra" },
+    { quote: "Everything you can imagine is real.", author: "Pablo Picasso" },
+    { quote: "Do one thing every day that scares you.", author: "Eleanor Roosevelt" },
+    { quote: "Keep your friends close, but your enemies closer.", author: "Michael Corleone" }
+];
+        let btn=document.getElementById('cli')
+        btn.addEventListener('click',(e)=>{
+            const randomquote=Math.floor(Math.random() * quotes.length)
+            const selectedquote=quotes[randomquote]
+            let qu=document.getElementById('quote')
+            qu.innerHTML=`${selectedquote.quote} <br> <strong>-${selectedquote.author}</strong>`
+        })
+    </script>
+</body>
+</html>
