@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Domain Check</title>
+    <style>
+        body{
+            background-color: black;
+            color: white;
+        }
+        #container{
+            width: 500px;
+            height: 200px;
+            border: 2px solid white;
+            margin: 0 auto;
+        }
+        #details{
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+        }
+        #domain{
+            margin-top: 50px;
+            font-size: 20px;
+        }
+        #btn{
+            font-size: 20px;
+            padding: 3px;
+            background-color: black;
+            color: white;
+            font-weight: bolder;
+        }
+        #btn:hover{
+            background-color: white;
+            color: black;
+        }
+        .msg{
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <div id="container">
+        <div id="details">
+            <input type="text" id="domain"><br>
+            <button id="btn" onclick="check()">Check</button>
+        </div>
+    </div>
+    <script>
+        let arr=["xyz","com","abc","pqr","co","efg"]
+        let key=document.getElementById("domain")
+        let msg=document.createElement('h1')
+        msg.className="msg"
+        function check(){
+            if(key.value===""){
+                alert("Enter The Domain Name!!")
+            }
+            else{
+            if(arr.includes(key.value)){
+                console.log("it is present")
+                msg.innerHTML=`Domain  \'${key.value}'\ is Present`
+                document.body.appendChild(msg)
+            }else{
+                msg.innerHTML=`Domain  \'${key.value}'\ Is Not Present`
+                document.body.appendChild(msg)
+                arr.push(key.value)
+                console.log("it is not present")
+            }
+            console.log(arr)
+          }
+        }
+    </script>
+</body>
+</html>

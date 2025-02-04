@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        #root{
+            width: 900px;
+            height: 600px;
+            border: 2px solid black;
+            margin: 0 auto;
+            background-color: black;
+        }
+        #num{
+            font-size: 50px;
+            text-align: center;
+            margin-top: 220px;
+            color: white;
+        }
+        #buttons{
+            display: flex;
+            justify-content: center;
+            padding: 10px;
+            column-gap: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div id="root">
+        <h2 id="num"></h2>
+    </div>
+    <div id="buttons">
+        <button onclick="increment()">Increment</button>
+        <button onclick="decrement()">Decrement</button>
+    </div>
+    <script>
+        let num=1
+        function increment(){
+            num++
+            document.getElementById('num').innerText=num
+        }
+        function decrement(){
+            if(num==0){
+                document.getElementById('num').innerText=num
+            }else{
+                num--
+                document.getElementById('num').innerText=num
+            }
+        }
+    </script>
+</body>
+</html>
