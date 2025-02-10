@@ -1,0 +1,33 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppings';
+}
+body{
+    background-image: url('./bg1.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+h1{
+    color: white;
+    font-size: 56px;
+    font-weight: 800;
+}
+h4{
+    color: whitesmoke;
+    font-size: 30px;
+    font-weight: bolder;
+}
+#container{
+    margin-top: 250px;
+    text-align: center;
+}
+  .btn{
+    display: flex;
+    justify-content: center;
+  }
+  #container h4{
+    text-align: right;
+    margin-right: 90px;
+  }
