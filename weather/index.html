@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Weather App</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" 
+    integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <style>
+        body{
+            background:linear-gradient(to right,skyblue,lightblue);
+            background-size: cover;
+            background-repeat: no-repeat;
+            min-height: 100vh;
+        }
+        .content-box{
+            display: flex;
+            justify-content: center;
+            margin-top: 90px;
+            gap: 1.3rem;
+        }
+        input{
+            padding: 12px 18px;
+            font-size: 20px;
+            border-radius: 8px;
+            border: none;
+        }
+        #cardcontainer{
+          display: flex;
+          justify-content: center;
+          margin-top: 30px;
+        }
+        @media screen and (max-width: 768px) {
+            .content-box {
+                flex-direction: column;
+                align-items: center;
+            }
+            .card {
+                width: 100%;
+                max-width: 350px;
+            }
+        }
+        @media screen and (max-width: 480px) {
+            input, button {
+                font-size: 16px;
+                padding: 10px 12px;
+            }
+        }
+    </style>
+</head>
+<body >
+    <nav class="navbar navbar-expand-lg">
+        <div class="container">
+          <button class="navbar-toggler" 
+          type="button" 
+          data-bs-toggle="collapse" 
+          data-bs-target="#navbarButtonsExample" 
+          aria-expanded="false" >
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <a class="navbar-brand" href="#">
+            <img src="./logo1.png" width="36" />
+          </a>
+          <div class="collapse navbar-collapse" id="navbarButtonsExample">
+            <ul class="navbar-nav">
+              <li class="nav-item">
+                <a class="nav-link" aria-current="page" href="./index.html">Home</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" aria-current="page" href="./about.html">About</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" aria-current="page" href="./service.html">Service</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </nav>
+      <div class="content-box ">
+          <input type="text" name="" id="city" placeholder="Enter The City Name"> 
+          <button type="button" class="btn btn-outline-light" id="display">Search</button>
+      </div>
+      <div id="cardcontainer">
+
+      </div>
+    <script>
+        let city=document.getElementById('city');
+        let display=document.getElementById('display');
+        let cardcontainer=document.getElementById('cardcontainer')
+        let card=``;
+        display.addEventListener('click', async()=>{
+          // console.log("city name got!!")
+          let cityName=city.value.trim();
+          console.log(cityName)
+          if(cityName===''){
+            alert("Enter The City Name!!")
+            return
+          }else{
+            const id='9c2fcf5cc72fadcc62a3d6685d57ea31'
+              let url=`https://api.openweathermap.org/data/2.5/weather?q=${cityName}&appid=${id}&units=metric`
+              let res,data;
+              res=await fetch(url)
+              data=await res.json()
+              const icon=data.weather[0].icon
+              // console.log(data,icon)
+              console.log("Response Code (cod):", data.cod)
+              if(data.cod!==200){   
+                alert("City Not Found!")
+                // return;
+              }
+         card=`<div class="card text-white shadow mb-0" 
+       style="width: 18rem; 
+              background: linear-gradient(135deg, #6dd5ed, #2193b0); 
+              border-radius: 10px; 
+              overflow: hidden;
+              margin-bottom: 0 !important;">
+
+    <img src="http://openweathermap.org/img/wn/${icon}@2x.png" 
+         class="card-img-top p-3 bg-white bg-opacity-25" 
+         alt="Image Not Found" 
+         style="object-fit: contain;" />
+
+    <div class="card-body text-center p-3 pb-2">
+      <h5 class="card-title mb-2">City: ${data.name}</h5>
+    </div>
+
+    <ul class="list-group list-group-flush">
+      <li class="list-group-item bg-transparent text-white text-center border-0 py-1">Temperature: ${data.main.temp}°C</li>
+      <li class="list-group-item bg-transparent text-white text-center border-0 py-1">Humidity: ${data.main.humidity}%</li>
+      <li class="list-group-item bg-transparent text-white text-center border-0 py-1">Description: ${data.weather[0].description}</li>
+    </ul>
+  </div>`
+    cardcontainer.innerHTML=card;
+  }
+        })
+    city.addEventListener('keyup', function(event) {
+  if (event.key === 'Enter') {
+    display.click(); // Triggers the same search logic
+  }
+});
+    </script>
+    <script src="./formvalidation.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js" integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy" crossorigin="anonymous"></script>
+</body>
+</html>
